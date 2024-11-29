@@ -53,7 +53,7 @@ Lafda Centre | Arush Karnatak
                             {% else %}
                             <i class="far fa-thumbs-up"></i> Like
                             {% endif %}
-                            ({{ mudda.likes_count }})
+                            ({{ mudda.likes_count.count }}) <!-- This will display the total number of likes -->
                         </button>
                     </form>
                 </div>
