@@ -9,6 +9,8 @@ urlpatterns = [
     path("register/", views.register, name='register'),
     path('search/', views.searchMudda, name='searchMudda'),  # This should match exactly
     path('like/<int:mudda_id>/', views.like_mudda, name='like_mudda'),
+    path('mudda/comment/<int:mudda_id>/', views.add_comment, name='add_comment'),
+
 
 
 

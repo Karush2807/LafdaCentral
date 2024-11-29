@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Mudda, SearchQuery
+from .models import Mudda, SearchQuery, Comment
 from .forms import MuddaForm, UserRegistrationForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -90,3 +90,13 @@ def like_mudda(request, mudda_id):
         mudda.likes_count.add(request.user) #agr like nhi hai, to like krdo
 
     return redirect('mudda_list')
+
+@login_required
+def add_comment(request, mudda_id):
+    mudda = get_object_or_404(Mudda, id=mudda_id)
+    if request.method == 'POST':
+        content=request.POST.get('content')
+        if content:  # Ensure the comment is not empty
+            Comment.objects.create(mudda=mudda, user=request.user, content=content)
+    return redirect('mudda_list')  # Redirect back to the mudda list or detail page
+            

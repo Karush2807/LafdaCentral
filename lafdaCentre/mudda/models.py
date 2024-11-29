@@ -9,7 +9,7 @@ class Mudda(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     likes_count=models.ManyToManyField(User, related_name='liked_muddas', blank=True)
-
+    
     def __str__(self):
         return f'{self.userID.username} - {self.mudda_desc[:10]}'
     
@@ -25,3 +25,13 @@ class SearchQuery(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.query}"
+    
+#for commenting purposes
+class Comment(models.Model):
+    mudda=models.ForeignKey(Mudda, related_name='comments', on_delete=models.CASCADE) #foreign key hai, jo ki Mudda se link kregi
+    user=models.ForeignKey(User, on_delete=models.CASCADE) #foreign key, uske liye jisne mmudda uthaya hai 
+    content=models.TextField(max_length=500) #comment baazi
+    timestamp=models.DateTimeField(auto_now_add=True) #jis time mudda bna hai 
+
+    def __str__(self):
+        return f"{self.user.username} commented on {self.mudda}"
