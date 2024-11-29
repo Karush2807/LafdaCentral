@@ -80,3 +80,13 @@ def searchMudda(request):
 
     return render(request, 'search.html', {'muddas': muddas, 'query': query})
 
+@login_required
+def like_mudda(request, mudda_id):
+    mudda=get_object_or_404(Mudda, id=mudda_id)
+    if request.user in mudda.likes_count.all():
+        mudda.likes_count.remove(request.user) #agr same user hua to remove krdo :)
+
+    else:
+        mudda.likes_count.add(request.user) #agr like nhi hai, to like krdo
+
+    return redirect('mudda_list')

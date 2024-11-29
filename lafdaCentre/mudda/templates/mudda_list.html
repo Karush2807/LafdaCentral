@@ -43,6 +43,19 @@ Lafda Centre | Arush Karnatak
                         <h5 class="card-title mb-0 ms-2">{{ mudda.userID.username }}</h5>
                     </div>
                     <p class="card-text">{{ mudda.mudda_desc }}</p>
+
+                    <!-- Like Button -->
+                    <form method="POST" action="{% url 'like_mudda' mudda.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-primary">
+                            {% if user in mudda.likes_count.all %}
+                            <i class="fas fa-thumbs-up"></i> Unlike
+                            {% else %}
+                            <i class="far fa-thumbs-up"></i> Like
+                            {% endif %}
+                            ({{ mudda.likes_count }})
+                        </button>
+                    </form>
                 </div>
                 {% if mudda.userID == user %}
                 <div class="card-footer">

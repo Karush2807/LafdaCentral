@@ -8,9 +8,14 @@ class Mudda(models.Model):
     mudda_img = models.ImageField(upload_to='photos/', blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    likes_count=models.ManyToManyField(User, related_name='mudda_likes', blank=True)
 
     def __str__(self):
         return f'{self.userID.username} - {self.mudda_desc[:10]}'
+    
+    def total_likes(self):
+        return self.likes_count.count()  # Return the count of likes
+
     
 #for adding the search funcitonality in our lafda centre
 class SearchQuery(models.Model):
